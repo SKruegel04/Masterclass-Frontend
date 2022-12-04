@@ -5,17 +5,10 @@ import NavBar from "./components/NavBar.vue";
 
 <template>
   <NavBar />
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-  </header>
 
-  <RouterView />
+  <main class="pt-5">
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>

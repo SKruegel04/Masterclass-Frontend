@@ -1,9 +1,22 @@
 <script setup>
-import HelloWorld from "../components/HelloWorld.vue";
+import { RouterLink } from "vue-router";
 </script>
 
 <template>
   <main>
-    <HelloWorld msg="Die besten Sport- und Tanzkurse einfach online buchen!"/>
+    <div class="px-4 py-5 my-5 text-center">
+      <h1 class="display-5 fw-bold">Willkommen auf Masterclass</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Die besten Sport- und Tanzkurse jetzt buchen!</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <RouterLink
+            :to="{ name: 'courses' }"
+            class="btn btn-primary btn-lg px-4 gap-3"
+          >
+            Alle Kurse
+          </RouterLink>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
