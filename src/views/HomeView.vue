@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-</script>
-
 <template>
   <main>
     <div class="px-4 py-5 my-5 text-center">
@@ -20,3 +16,7 @@ import { RouterLink } from "vue-router";
     </div>
   </main>
 </template>
+
+<script setup>
+import { RouterLink } from "vue-router";
+</script>

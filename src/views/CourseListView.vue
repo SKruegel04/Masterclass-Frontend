@@ -1,51 +1,34 @@
 <template>
   <div class="container">
     <h1>Alle Kurse</h1>
+
+    <div class="d-flex justify-content-end mb-4">
+      <RouterLink
+        :to="{ name: 'createCourse' }"
+        class="btn btn-primary btn-lg px-4 gap-3"
+      >
+        Neuen Kurs erstellen
+      </RouterLink>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
+      <div v-for="course in courses" :key="course.id" class="col">
         <div class="card h-100">
-          <img src="..." class="card-img-top" alt="..." />
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{ course.title }}</h5>
+            <p class="card-text">{{ course.category }}</p>
+            <p class="card-text">{{ course.description }}</p>
             <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              {{ new Date(course.date).toLocaleString() }}
             </p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a short card.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
+            <p class="card-text">Dauer: {{ course.duration }} Minuten</p>
+            <div class="d-flex justify-content-end">
+              <RouterLink
+                :to="{ name: 'deleteCourse', params: { id: course.id } }"
+              >
+                Delete
+              </RouterLink>
+            </div>
           </div>
         </div>
       </div>
@@ -55,6 +38,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 
 const loading = ref(false);
 const courses = ref([]);
