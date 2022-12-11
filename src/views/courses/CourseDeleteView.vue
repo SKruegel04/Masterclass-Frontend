@@ -45,7 +45,7 @@ const onDelete = async () => {
   console.log("Deleting user with id " + params.id);
 
   state.deleting = true;
-  await fetch(`http://localhost:8080/courses/${params.id}`, {
+  await fetch(`${import.meta.env.VITE_API_URL}/courses/${params.id}`, {
     method: "delete",
   });
   state.deleting = false;

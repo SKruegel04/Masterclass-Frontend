@@ -98,7 +98,7 @@ const state = reactive({
 
 const onSubmit = async () => {
   state.submitting = true;
-  const response = await fetch("http://localhost:8080/courses", {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/courses`, {
     method: "post",
     headers: {
       "Content-Type": "application/json; encoding=utf-8",

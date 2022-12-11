@@ -45,7 +45,7 @@ const courses = ref([]);
 
 const loadCourses = async () => {
   loading.value = true;
-  const response = await fetch("http://localhost:8080/courses");
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/courses`);
   courses.value = await response.json();
   loading.value = false;
 };
