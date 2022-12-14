@@ -1,3 +1,5 @@
+[![CI](https://github.com/SKruegel04/Masterclass-Frontend/actions/workflows/tests.yml/badge.svg)](https://github.com/SKruegel04/Masterclass-Frontend/actions/workflows/tests.yml)
+
 # Masterclass-Frontend
 
 This template should help get you started developing with Vue 3 in Vite.
