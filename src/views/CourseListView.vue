@@ -16,7 +16,9 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">{{ course.title }}</h5>
-            <p class="card-text">{{ course.category }}</p>
+            <p class="card-text">
+              {{ course.category }} - mit {{ course.user.name }}
+            </p>
             <p class="card-text">{{ course.description }}</p>
             <p class="card-text">
               {{ new Date(course.date).toLocaleString() }}
@@ -24,9 +26,14 @@
             <p class="card-text">Dauer: {{ course.duration }} Minuten</p>
             <div class="d-flex justify-content-end">
               <RouterLink
+                :to="{ name: 'editCourse', params: { id: course.id } }"
+              >
+                Bearbeiten
+              </RouterLink>|
+              <RouterLink
                 :to="{ name: 'deleteCourse', params: { id: course.id } }"
               >
-                Delete
+                Löschen
               </RouterLink>
             </div>
           </div>

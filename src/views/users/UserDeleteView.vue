@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div v-if="!state.deleted" class="alert alert-danger">
-      <strong>Möchtest du den Kurs wirklich löschen?</strong><br />
+      <strong>Möchtest du den Nutzer wirklich löschen?</strong><br />
       <div class="d-flex justify-content-end">
         <RouterLink
-          :to="{ name: 'courses' }"
+          :to="{ name: 'users' }"
           :class="['btn btn-light', { disabled: state.deleting }]"
         >
           Nein, abbrechen!
@@ -20,10 +20,10 @@
       </div>
     </div>
     <div v-else class="alert alert-success">
-      <strong>Kurs wurde erfolgreich gelöscht</strong><br />
+      <strong>Nutzer wurde erfolgreich gelöscht</strong><br />
       <div class="d-flex justify-content-end">
-        <RouterLink :to="{ name: 'courses' }" class="btn btn-success">
-          Zurück zur Kursübersicht
+        <RouterLink :to="{ name: 'users' }" class="btn btn-success">
+          Zurück zur Nutzerübersicht
         </RouterLink>
       </div>
     </div>
@@ -42,10 +42,10 @@ const state = reactive({
 });
 
 const onDelete = async () => {
-  console.log("Deleting course with id " + params.id);
+  console.log("Deleting user with id " + params.id);
 
   state.deleting = true;
-  await fetch(`${import.meta.env.VITE_API_URL}/courses/${params.id}`, {
+  await fetch(`${import.meta.env.VITE_API_URL}/users/${params.id}`, {
     method: "delete",
   });
   state.deleting = false;

@@ -16,6 +16,7 @@ vi.mock("vue-router", () => ({
 
 describe("CourseCreateView", () => {
   it("renders properly", () => {
+    fetch.mockResponse(JSON.stringify([{ id: 1 }, { id: 2 }]));
     const wrapper = mount(CourseCreateView, {});
     expect(wrapper.text()).toContain("Kursname");
   });

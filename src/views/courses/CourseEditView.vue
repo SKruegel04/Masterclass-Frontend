@@ -1,14 +1,14 @@
 <template>
-  <div v-if="state.createdCourse" class="container">
+  <div v-if="state.editedCourse" class="container">
     <div class="alert alert-success">
-      <h4>Dein Kurs wurde erfolgreich erstellt!</h4>
+      <h4>Kurs wurde erfolgreich geändert</h4>
       <RouterLink :to="{ name: 'courses' }" class="btn btn-success">
         Zur Kursübersicht
       </RouterLink>
     </div>
   </div>
-  <div v-if="state.createdCourse === null" class="container">
-    <h1>Einen neuen Kurs anlegen</h1>
+  <div v-if="state.editedCourse === null" class="container">
+    <h1>Kurs bearbeiten</h1>
 
     <form @submit.prevent="onSubmit">
       <div class="form-group">
@@ -96,15 +96,17 @@
         type="submit"
         class="btn btn-primary mt-4"
       >
-        Jetzt erstellen
+        Kurs speichern
       </button>
     </form>
   </div>
 </template>
 
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink, useRoute } from "vue-router";
 import { reactive } from "vue";
+
+const route = useRoute();
 
 const course = reactive({
   title: "",
@@ -117,10 +119,26 @@ const course = reactive({
 
 const state = reactive({
   submitting: false,
-  createdCourse: null,
+  loadingCourse: false,
+  editedCourse: null,
   loadingUsers: false,
   users: [],
 });
+
+const loadCourse = async () => {
+  state.loadingCourse = true;
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/courses/${route.params.id}`
+  );
+  const fetchedCourse = await response.json();
+  course.title = fetchedCourse.title;
+  course.description = fetchedCourse.description;
+  course.category = fetchedCourse.category;
+  course.date = fetchedCourse.date;
+  course.duration = fetchedCourse.duration;
+  course.userId = fetchedCourse.user.id;
+  state.loadingCourse = false;
+};
 
 const loadUsers = async () => {
   state.loadingUsers = true;
@@ -131,17 +149,21 @@ const loadUsers = async () => {
 
 const onSubmit = async () => {
   state.submitting = true;
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/courses`, {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json; encoding=utf-8",
-    },
-    body: JSON.stringify(course),
-  });
-  state.createdCourse = await response.json();
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/courses/${route.params.id}`,
+    {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json; encoding=utf-8",
+      },
+      body: JSON.stringify(course),
+    }
+  );
+  state.editedCourse = await response.json();
   state.submitting = false;
 };
 
+loadCourse();
 loadUsers();
 </script>
 
